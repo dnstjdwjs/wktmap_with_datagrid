@@ -1,10 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Navbar, Container, Button, Form, Row, Col, Alert, InputGroup, Toast, ToastContainer } from "react-bootstrap";
+import { Navbar, Container, Button, Form, Row, Col, Alert, InputGroup, Toast, ToastContainer, Table } from "react-bootstrap";
 import { MapContainer, TileLayer, FeatureGroup, LayersControl } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
-import { React, useState, useMemo, useEffect, useRef } from "react";
+import React from "react";
+import {useState, useMemo, useEffect, useRef } from "react";
 import epsgList from "./epsg";
 import crsList from "./crs";
 import examples from "./examples";
@@ -36,6 +37,9 @@ function App() {
   const [wkt, setWkt] = useState("");
   const [exampleIndex, setExampleIndex] = useState(0);
   const [showUrl, setShowUrl] = useState(false);
+
+  // data table
+  const [geomtable, setGeomtable] = useState([{"col1": "val1"},{"col1": "val2"},{"col1": "val3"}]);
 
   const groupRef = useRef();
   const epsgCache = useRef(epsgList);
@@ -392,6 +396,38 @@ function App() {
             }
           </Col>
         </Row>
+      </Container>
+
+      <Container className = "mt-3 mb-3 geomdatagrid">
+        <Table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>{geomtable[0].col1}</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>{geomtable[0].col1}</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">{geomtable[0].col1}</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </Table>
       </Container>
 
       <footer className="footer mt-auto pt-5 pb-4 bg-light">
